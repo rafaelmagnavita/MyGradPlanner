@@ -1,14 +1,47 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QMessageBox, QVBoxLayout, QGridLayout
 import pyodbc
 import Models.Materias
 import Models.Semestre
 import Models.Cursos
 
 class FunctionsU():
+    def selectCourse(self,nome):
+        print(f"Course {nome} selected!")
 
-    def startQuery():          
+    def selectMateria(self):
+        print("Materia selected!")
+
+    def startQuery(self):
+        # Create the main window
         conexao = conectar_banco_dados()
-        k = 1
+        app = QApplication([])
+        window = QWidget()
+        window.setWindowTitle("Course Selection")
+        window.setGeometry(100, 100, 400, 300)
+        # Create a grid layout
+        layout = QGridLayout()
+
+        # Create labels and buttons
+        row = 0
+        col = 0
+        for curso in obter_cursos(conexao):
+            course_btn = QPushButton(curso.Nome, window)
+            course_btn.clicked.connect(lambda checked, curso=curso: self.selectCourse(curso.Nome))
+            layout.addWidget(course_btn, row, col)
+        
+            col += 1
+            if col == 3:  # Adjust the number (3) as per your requirement for number of columns
+                col = 0
+                row += 1
+    
+        window.setLayout(layout)
+            
+
+        # Show the window
+        window.show()
+
+        # Start the application event loop
+        app.exec()
 
         # Definir o número de semestres
         numero_semestres = 10

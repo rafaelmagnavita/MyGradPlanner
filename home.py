@@ -9,7 +9,8 @@ class HomeWindow(QWidget):
         super().__init__()
         self.setWindowTitle("Home")
         self.setGeometry(300, 300, 300, 200)
-        functions.FunctionsU.startQuery()
+        functionMain = functions.FunctionsU()
+        functionMain.startQuery()
         print("Programa finalizado.")
 
 

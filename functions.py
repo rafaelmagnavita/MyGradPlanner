@@ -8,6 +8,7 @@ class FunctionsU():
 
     def startQuery():          
         conexao = conectar_banco_dados()
+        k = 1
 
         # Definir o número de semestres
         numero_semestres = 10
